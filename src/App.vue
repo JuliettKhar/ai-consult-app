@@ -1,85 +1,90 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
+  <header class="page-header">
+    <RouterLink to="/" class="page-header__logo">AI × コンサル</RouterLink>
+    <nav class="page-header__nav">
+      <RouterLink to="/">ホーム</RouterLink>
+      <RouterLink to="/about">利用規約</RouterLink>
+      <RouterLink to="/chat">サポート</RouterLink>
+    </nav>
   </header>
-
   <RouterView />
+  <footer class="page-footer">
+    <span>プライバシー</span>
+    <span>利用規約</span>
+  </footer>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
+<style scoped lang="scss">
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  @media (max-width: 1024px) {
+    justify-content: flex-end;
+  }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+  &__logo {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 36px;
+    font-weight: bold;
+    @media (max-width: 1024px) {
+      display: none;
+    }
+  }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
+  &__nav {
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    gap: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: inherit;
+
+    & > a {
+      padding: 0 5px;
+      text-decoration: none;
+      position: relative;
+
+      &:after {
+        position: absolute;
+        content: '';
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        background: #7852e1;
+        z-index: 1;
+        width: 100%;
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform 0.3s ease;
+      }
+
+      &:hover:after {
+        transform: scaleX(1);
+      }
+    }
   }
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+.page-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  font-size: 20px;
+  position: relative;
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+  &::before {
+    position: absolute;
+    content: '';
+    height: 2px;
+    width: 100%;
+    background: #f0f0f0;
+    top: -20px;
   }
 }
 </style>

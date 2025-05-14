@@ -139,6 +139,7 @@ const fetchNextQuestion = () => {
 
       @media (max-width: 1024px) {
         width: 100%;
+        background: transparent;
       }
 
       &:focus {

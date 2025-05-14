@@ -44,6 +44,13 @@ const categorySelectBtns = [
     grid-template-rows: 0.5fr 100px 100px;
     width: 100%;
     gap: 20px;
+    margin-bottom: 20px;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+      gap: 0;
+    }
   }
 
   &__title-section {
@@ -58,6 +65,12 @@ const categorySelectBtns = [
       line-height: 1.1;
       font-size: 4rem;
       font-weight: bold;
+
+      @media (max-width: 1024px) {
+        font-size: 3rem;
+        text-align: center;
+        color: #2f1f4f;
+      }
     }
   }
 
@@ -65,6 +78,10 @@ const categorySelectBtns = [
     position: relative;
     grid-row: 1;
     grid-column: 2;
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
 
     &-image {
       width: 100%;
@@ -79,11 +96,19 @@ const categorySelectBtns = [
     display: flex;
     align-items: center;
     gap: 24px;
+
+    @media (max-width: 1024px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   &__warning-section {
     grid-row: 3;
     grid-column: 1 / span 3;
+
+    @media (max-width: 1024px) {
+    }
   }
 }
 
@@ -91,6 +116,11 @@ const categorySelectBtns = [
   &__description {
     font-size: 29px;
     margin-top: 20px;
+
+    @media (max-width: 1024px) {
+      font-size: 19px;
+      text-align: center;
+    }
   }
 }
 
@@ -98,10 +128,18 @@ const categorySelectBtns = [
   &__title {
     font-weight: bold;
     font-size: 28px;
+
+    @media (max-width: 1024px) {
+      font-weight: normal;
+    }
   }
 
   &__subtitle {
     font-size: 20px;
+
+    @media (max-width: 1024px) {
+      font-size: 16px;
+    }
   }
 }
 
@@ -117,6 +155,12 @@ const categorySelectBtns = [
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
+    white-space: nowrap;
+    text-align: center;
+
+    @media (max-width: 1024px) {
+      background: rgba(255, 255, 255, 0.2);
+    }
 
     &:hover {
       border-color: #7852e1;
@@ -130,6 +174,12 @@ const categorySelectBtns = [
   &__canvas {
     width: 100%;
     transform: translate(55px, 10px);
+  }
+}
+
+section {
+  @media (max-width: 1024px) {
+    margin-bottom: 20px;
   }
 }
 </style>

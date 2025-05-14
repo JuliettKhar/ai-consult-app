@@ -24,8 +24,9 @@ import { RouterLink, RouterView } from 'vue-router'
   justify-content: space-between;
   align-items: center;
   gap: 20px;
+
   @media (max-width: 1024px) {
-    justify-content: flex-end;
+    justify-content: center;
   }
 
   &__logo {
@@ -33,6 +34,7 @@ import { RouterLink, RouterView } from 'vue-router'
     text-decoration: none;
     font-size: 36px;
     font-weight: bold;
+
     @media (max-width: 1024px) {
       display: none;
     }
@@ -68,6 +70,12 @@ import { RouterLink, RouterView } from 'vue-router'
         transform: scaleX(1);
       }
     }
+
+    @media (max-width: 1024px) {
+      gap: 1.5rem;
+      padding: 1rem 0 0;
+      color: white;
+    }
   }
 }
 
@@ -77,6 +85,11 @@ import { RouterLink, RouterView } from 'vue-router'
   gap: 20px;
   font-size: 20px;
   position: relative;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+    color: #666;
+  }
 
   &::before {
     position: absolute;

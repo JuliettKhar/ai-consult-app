@@ -12,25 +12,23 @@
   background: white;
   border-radius: 50px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  height: fit-content;
 
   @media (max-width: 1024px) {
     padding: 1.5rem;
     max-width: 90%;
     min-width: 90%;
-    background: linear-gradient(270deg, #d0bfff, #b8c0ff, #f3c4fb, #d0bfff);
-    background-size: 400% 400%;
-    animation: gradientMove 40s ease-in-out infinite;
-  }
-}
 
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
+    &:before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('./image/head-ai.png');
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.09;
+      z-index: 0;
+    }
   }
 }

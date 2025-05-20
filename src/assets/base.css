@@ -62,7 +62,6 @@ body {
   display: flex;
   align-items: center;
   min-height: 100vh;
-  color: #000;
   background: #f0f0f0;
   transition: color 0.5s,
   background-color 0.5s;
@@ -73,13 +72,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(135deg, #fefeff, #f0f8ff);
+    color: #4a3a6a;
 
   @media (max-width: 1024px) {
     padding: 1rem 0;
-    color: #4a3a6a;
   }
 }
 
 a {
   color: inherit;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }

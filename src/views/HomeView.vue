@@ -2,10 +2,10 @@
 import canvasImage from '@/components/canvasImage.vue'
 
 const categorySelectBtns = [
-  { name: '仕事', to: '/chat' },
-  { name: '学業', to: '/chat' },
-  { name: '人間関係', to: '/chat' },
-  { name: '健康', to: '/chat' },
+  { name: '仕事', to: '/chat', query: { type: 'job' } },
+  { name: '学業', to: '/chat', query: { type: 'study' } },
+  { name: '人間関係', to: '/chat', query: { type: 'relationship' } },
+  { name: '健康', to: '/chat', query: { type: 'health' } },
 ]
 </script>
 
@@ -21,7 +21,9 @@ const categorySelectBtns = [
       </section>
       <section class="page-main__button-section">
         <template v-for="(item, i) in categorySelectBtns" :key="i">
-          <RouterLink class="button-section__button" :to="item.to">{{ item.name }}</RouterLink>
+          <RouterLink class="button-section__button" :to="{ path: item.to, query: item.query }"
+            >{{ item.name }}
+          </RouterLink>
         </template>
       </section>
       <section class="page-main__warning-section">
@@ -65,11 +67,11 @@ const categorySelectBtns = [
       line-height: 1.1;
       font-size: 4rem;
       font-weight: bold;
+      color: #2f1f4f;
 
       @media (max-width: 1024px) {
-        font-size: 3rem;
+        font-size: 2.3rem;
         text-align: center;
-        color: #2f1f4f;
       }
     }
   }
@@ -106,9 +108,6 @@ const categorySelectBtns = [
   &__warning-section {
     grid-row: 3;
     grid-column: 1 / span 3;
-
-    @media (max-width: 1024px) {
-    }
   }
 }
 
@@ -159,7 +158,8 @@ const categorySelectBtns = [
     text-align: center;
 
     @media (max-width: 1024px) {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 0 8px rgba(127, 90, 240, 0.5);
     }
 
     &:hover {

@@ -42,7 +42,7 @@ const backgroundParticles = Array.from({ length: 70 }, () => ({
   alpha: Math.random() * 0.5 + 0.2,
 }))
 
-function drawBackgroundParticles() {
+const drawBackgroundParticles = () => {
   const width = (canvas.value as HTMLCanvasElement).width
   const height = (canvas.value as HTMLCanvasElement).height
 
@@ -66,7 +66,7 @@ function drawBackgroundParticles() {
   })
 }
 
-function animate() {
+const animate = () => {
   if (ctx.value && canvas.value) {
     ctx.value.clearRect(0, 0, canvas.value.width || 0, canvas.value.height || 0)
     ctx.value.globalAlpha = 1
@@ -124,9 +124,7 @@ onMounted(async () => {
   if (canvas.value) {
     ctx.value = canvas.value.getContext('2d')
     img.value.src = HeadAIIMG
-    img.value.onload = () => {
-      requestAnimationFrame(animate)
-    }
+    img.value.onload = () => animate()
   }
 })
 </script>

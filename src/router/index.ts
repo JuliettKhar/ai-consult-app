@@ -15,7 +15,22 @@ const router = createRouter({
       component: () => import('../views/ChatView.vue'),
       props: true,
     },
+    {
+      path: '/faq',
+      name: 'faq',
+      component: () => import('../views/FAQ.vue'),
+      props: true,
+    },
   ],
+  scrollBehavior(to) {
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth',
+      }
+    }
+    return { top: 0 }
+  },
 })
 
 export default router

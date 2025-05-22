@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
 import { computed, ref } from 'vue'
+
+const route = useRoute()
 
 const onApiKeyClick = () => {
   isApiChoosed.value = true
@@ -8,7 +10,7 @@ const onApiKeyClick = () => {
 
 const nav = [
   { name: 'ホーム', to: '/', cb: null },
-  { name: 'サポート', to: '/chat', query: { type: 'relationship' }, cb: null },
+  { name: 'サポート', to: '/faq#support', query: { type: '' }, cb: null },
   { name: 'APIキー', to: '', cb: onApiKeyClick },
 ]
 const apiKey = ref('')
@@ -17,6 +19,8 @@ const isApiChoosed = ref(false)
 const isApiKeyValid = computed(() => {
   return /^sk-[a-zA-Z0-9]{32}$/.test(apiKey.value)
 })
+
+const isFaqRouter = computed(() => route.path.includes('faq'))
 
 const getApiKey = () => {
   if (!isApiKeyValid.value) {
@@ -34,7 +38,7 @@ const getApiKey = () => {
 <template>
   <header class="page-header">
     <RouterLink to="/" class="page-header__logo">AI × コンサル</RouterLink>
-    <nav class="page-header__nav">
+    <nav class="page-header__nav" v-if="!isFaqRouter">
       <RouterLink
         v-for="(item, i) in nav"
         :key="i"
@@ -63,9 +67,9 @@ const getApiKey = () => {
       <component :is="Component" />
     </transition>
   </router-view>
-  <footer class="page-footer">
-    <span>プライバシー</span>
-    <span>利用規約</span>
+  <footer class="page-footer" v-if="!isFaqRouter">
+    <router-link to="/faq#privacy">プライバシーポリシー</router-link>
+    <router-link to="/faq#tos">利用規約</router-link>
   </footer>
 </template>
 
@@ -193,6 +197,9 @@ const getApiKey = () => {
   font-size: 20px;
   position: relative;
   color: #666;
+  a {
+    text-decoration: none;
+  }
 
   @media (max-width: 1024px) {
     font-size: 16px;

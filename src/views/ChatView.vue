@@ -112,7 +112,6 @@ const fetchNextQuestion = async () => {
     }
   }
   try {
-    console.log(getMessageHistory.value)
     await getAnswerFromOpenAi()
     scrollToMessage()
   } catch (e: any) {

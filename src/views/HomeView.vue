@@ -52,6 +52,7 @@ const categorySelectBtns = [
       grid-template-columns: 1fr;
       grid-template-rows: 1fr;
       gap: 0;
+      margin-bottom: 0;
     }
   }
 
@@ -70,7 +71,7 @@ const categorySelectBtns = [
       color: #2f1f4f;
 
       @media (max-width: 1024px) {
-        font-size: 2.3rem;
+        font-size: 2.2rem;
         text-align: center;
       }
     }
@@ -115,9 +116,11 @@ const categorySelectBtns = [
   &__description {
     font-size: 29px;
     margin-top: 20px;
+    //font-size: clamp(29px, 2.5vw, 2rem);
 
     @media (max-width: 1024px) {
-      font-size: 19px;
+      //font-size: 16px;
+      font-size: clamp(1rem, 2.5vw, 2rem);
       text-align: center;
     }
   }
@@ -129,7 +132,7 @@ const categorySelectBtns = [
     font-size: 28px;
 
     @media (max-width: 1024px) {
-      font-weight: normal;
+      font-size: 20px;
     }
   }
 

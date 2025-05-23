@@ -109,11 +109,12 @@ const getApiKey = () => {
       padding: 0 5px;
       text-decoration: none;
       display: flex;
-      position: relative;
       color: #666;
+      position: relative;
 
       @media (max-width: 1024px) {
         font-weight: inherit;
+        font-size: 16px;
       }
 
       &:after {
@@ -147,6 +148,7 @@ const getApiKey = () => {
     align-items: center;
     position: absolute;
     right: 0;
+    top: 0;
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
@@ -154,6 +156,10 @@ const getApiKey = () => {
     padding: 10px 20px;
     border-radius: 10px;
     z-index: 2;
+
+    @media (max-width: 1024px) {
+      top: -10px;
+    }
 
     button,
     input {
@@ -194,15 +200,31 @@ const getApiKey = () => {
   display: flex;
   justify-content: flex-end;
   gap: 20px;
-  font-size: 20px;
+  font-size: 14px;
   position: relative;
   color: #666;
+
   a {
     text-decoration: none;
-  }
+    position: relative;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
+    &:after {
+      position: absolute;
+      content: '';
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: #7852e1;
+      z-index: 1;
+      width: 100%;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover:after {
+      transform: scaleX(1);
+    }
   }
 
   &::before {

@@ -53,16 +53,16 @@ const drawBackgroundParticles = () => {
     if (p.x < 0 || p.x > width) p.dx *= -1
     if (p.y < 0 || p.y > height) p.dy *= -1
 
-    ctx.value.beginPath()
-    ctx.value.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
+    ctx.value!.beginPath()
+    ctx.value!.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
 
     // светящийся эффект
-    ctx.value.shadowBlur = 12
-    ctx.value.shadowColor = 'rgba(180, 100, 255, 0.4)'
+    ctx.value!.shadowBlur = 12
+    ctx.value!.shadowColor = 'rgba(180, 100, 255, 0.4)'
 
-    ctx.value.fillStyle = `rgba(180, 100, 255, ${p.alpha})`
-    ctx.value.fill()
-    ctx.value.shadowBlur = 0
+    ctx.value!.fillStyle = `rgba(180, 100, 255, ${p.alpha})`
+    ctx.value!.fill()
+    ctx.value!.shadowBlur = 0
   })
 }
 
@@ -81,10 +81,10 @@ const animate = () => {
       const currentX = x1 + (x2 - x1) * progress
       const currentY = y1 + (y2 - y1) * progress
 
-      ctx.value.beginPath()
-      ctx.value.moveTo(x1, y1)
-      ctx.value.lineTo(currentX, currentY)
-      ctx.value.stroke()
+      ctx.value!.beginPath()
+      ctx.value!.moveTo(x1, y1)
+      ctx.value!.lineTo(currentX, currentY)
+      ctx.value!.stroke()
 
       // Update progress with direction
       line.progress += 0.01 * line.direction
@@ -100,14 +100,14 @@ const animate = () => {
     drawBackgroundParticles()
     // Animate glow points
     glowPoints.forEach((point) => {
-      ctx.value.beginPath()
+      ctx.value!.beginPath()
       const radius = 5 + pulse.value
-      ctx.value.arc(point.x, point.y, radius, 0, Math.PI * 2)
-      ctx.value.shadowBlur = 10 + pulse.value * 2
-      ctx.value.shadowColor = 'rgba(0, 200, 255, 0.8)'
-      ctx.value.fillStyle = 'rgba(0, 200, 255, 0.6)'
-      ctx.value.fill()
-      ctx.value.shadowBlur = 0 // reset after drawing
+      ctx.value!.arc(point.x, point.y, radius, 0, Math.PI * 2)
+      ctx.value!.shadowBlur = 10 + pulse.value * 2
+      ctx.value!.shadowColor = 'rgba(0, 200, 255, 0.8)'
+      ctx.value!.fillStyle = 'rgba(0, 200, 255, 0.6)'
+      ctx.value!.fill()
+      ctx.value!.shadowBlur = 0 // reset after drawing
     })
 
     // Pulse control (oscillate between 0 and 3)

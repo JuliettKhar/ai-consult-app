@@ -1,39 +1,34 @@
-# AI-consultant
+# AI相談チャット (AI Counseling Chat)
 
-This template should help get you started developing with Vue 3 in Vite.
+This is a Vue.js-based AI-powered chat application designed for providing helpful and empathetic counseling in different life categories (e.g. work, health, relationships).
 
-## Recommended IDE Setup
+## 🧠 Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- 💬 Clean and responsive chat interface  
+- 🤖 OpenAI GPT integration  
+- 🗂️ Category-based prompts (e.g. work, study, health, relationships)  
+- 🇯🇵 User-friendly Japanese design  
+- 📱 Mobile responsive layout   
+- 🌍 Multilingual support
 
-## Type Support for `.vue` Imports in TS
+## 🌐 Multilingual Support
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+The system is designed to respond in the **same language** the user writes in.
 
-## Customize configuration
+To support this behavior, use the following system prompt (in English):
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+> _"You are a helpful, empathetic counselor. Respond to the user in the same language they use."_
 
-## Project Setup
+Users can freely chat in Japanese, English, or any other supported language.
 
-```sh
-npm install
-```
+If you want to enforce a fixed language (e.g. Japanese), use:
 
-### Compile and Hot-Reload for Development
+> _"あなたは親切で共感的なカウンセラーです。日本語で丁寧に返答してください。"_
 
-```sh
-npm run dev
-```
+## 🚀 Getting Started
 
-### Type-Check, Compile and Minify for Production
+### 1. Clone the repository
 
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+```bash
+git clone https://github.com/yourusername/ai-counseling-chat.git
+cd ai-counseling-chat

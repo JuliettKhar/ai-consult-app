@@ -44,9 +44,7 @@
 .container {
   margin-bottom: 1rem;
   z-index: 2;
-
-  @media (max-width: 1024px) {
-  }
+  overflow: auto;
 }
 
 h2 {

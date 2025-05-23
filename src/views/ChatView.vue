@@ -85,7 +85,7 @@ const getAnswerFromOpenAi = async () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+        Authorization: `Bearer ${import.meta.env.MODE !== 'production' ? import.meta.env.VITE_API_KEY : key.value}`,
       },
       body: JSON.stringify({
         model: 'gpt-4',

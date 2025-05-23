@@ -17,7 +17,7 @@ const apiKey = ref('')
 const isApiChoosed = ref(false)
 
 const isApiKeyValid = computed(() => {
-  return /^sk-[a-zA-Z0-9]{32}$/.test(apiKey.value)
+  return /^sk-[a-zA-Z0-9-_]{10,}$/.test(apiKey.value)
 })
 
 const isFaqRouter = computed(() => route.path.includes('faq'))
@@ -28,10 +28,11 @@ const getApiKey = () => {
   }
   if (isApiKeyValid.value) {
     sessionStorage.setItem('apiKey', apiKey.value)
-    isApiChoosed.value = false
   } else {
     alert('API key not valid')
   }
+  isApiChoosed.value = false
+  apiKey.value = ''
 }
 </script>
 
@@ -47,19 +48,13 @@ const getApiKey = () => {
       >
         <span v-if="i !== 2">{{ item.name }}</span>
         <span v-else-if="i === 2 && !isApiChoosed">{{ item.name }}</span>
-        <transition name="fade" mode="out-in">
-          <form action="#" v-if="i === 2 && isApiChoosed" class="page-header__form">
-            <input
-              v-model.trim="apiKey"
-              type="password"
-              placeholder="APIキーを入力"
-              pattern="sk-[a-zA-Z0-9]{32}"
-              required
-            />
-            <button type="submit" @click="getApiKey">送信</button>
-          </form>
-        </transition>
       </RouterLink>
+      <transition name="fade" mode="out-in">
+        <form @click.prevent v-show="isApiChoosed" class="page-header__form">
+          <input v-model.trim="apiKey" type="password" placeholder="APIキーを入力" required />
+          <button type="submit" @click="getApiKey">送信</button>
+        </form>
+      </transition>
     </nav>
   </header>
   <router-view v-slot="{ Component }">

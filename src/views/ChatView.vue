@@ -205,6 +205,7 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    max-height: 30vh;
     min-height: 30vh;
 
     @media (max-width: 1024px) {

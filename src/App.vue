@@ -142,7 +142,6 @@ const getApiKey = () => {
     display: flex;
     align-items: center;
     position: absolute;
-    right: 0;
     top: 0;
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(6px);
@@ -151,6 +150,8 @@ const getApiKey = () => {
     padding: 10px 20px;
     border-radius: 10px;
     z-index: 2;
+    transform: translateX(50%);
+    right: 50%;
 
     @media (max-width: 1024px) {
       top: -10px;
@@ -165,6 +166,7 @@ const getApiKey = () => {
       font-style: inherit;
       border-radius: 3px;
       height: 24px;
+      color: inherit;
     }
 
     button {

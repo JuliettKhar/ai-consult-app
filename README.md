@@ -2,14 +2,28 @@
 
 This is a Vue.js-based AI-powered chat application designed for providing helpful and empathetic counseling in different life categories (e.g. work, health, relationships).
 
+## 🌐 Demo
+👉 [Live Demo](https://juliettkhar.github.io/ai-consult-app/) 
+> 🔑 **An OpenAI API key is required to use.**  
+Users must provide their own API key in the app interface to enable access to AI responses.
+
+## 🧰 Built With
+
+- ⚡ Vue 3 + Vite
+- 💬 OpenAI API
+- 🎨 SCSS custom styling
+- 🌐 Multilingual support
+
 ## 🧠 Features
 
-- 💬 Clean and responsive chat interface  
-- 🤖 OpenAI GPT integration  
-- 🗂️ Category-based prompts (e.g. work, study, health, relationships)  
-- 🇯🇵 User-friendly Japanese design  
-- 📱 Mobile responsive layout   
-- 🌍 Multilingual support
+- 🔐 API key input (user-provided or demo key)
+- 🌏 Supports any input language (OpenAI handles translation)
+- 🗂 Category selection for contextual prompts
+- 🤖 Talking bot with chat bubble animation
+- ✨ Animated glowing points and background effects
+- 📱 Responsive design with adaptive layouts
+- 🧩 Modular component structure
+- 📜 FAQ, Privacy Policy, and Terms links
 
 ## 🌐 Multilingual Support
 
@@ -25,10 +39,10 @@ If you want to enforce a fixed language (e.g. Japanese), use:
 
 > _"あなたは親切で共感的なカウンセラーです。日本語で丁寧に返答してください。"_
 
-## 🚀 Getting Started
-
-### 1. Clone the repository
+## 📦 Setup
 
 ```bash
-git clone https://github.com/yourusername/ai-counseling-chat.git
-cd ai-counseling-chat
+git clone https://github.com/juliettkhar.github.io/ai-consultant.git
+cd ai-consultant
+npm install
+npm run dev

@@ -58,10 +58,14 @@
   font-weight: normal;
 }
 
+html {
+  height: 100vh;
+}
+
 body {
   display: flex;
   align-items: center;
-  min-height: 100vh;
+  height: 100%;
   background: #f0f0f0;
   transition: color 0.5s,
   background-color 0.5s;

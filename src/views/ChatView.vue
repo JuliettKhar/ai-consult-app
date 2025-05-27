@@ -184,7 +184,7 @@ onMounted(() => {
 
   &__wrapper {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 2.5fr 2fr;
     justify-content: center;
     gap: 20px;
     padding: 0 0 2rem;
@@ -201,7 +201,7 @@ onMounted(() => {
     padding: 20px;
     border: 1px solid #f0f0f0;
     border-radius: 20px;
-    box-shadow: 0 0 8px rgba(127, 90, 240, 0.5);
+    background: rgba(240, 240, 240, 0.2);
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -210,6 +210,7 @@ onMounted(() => {
 
     @media (max-width: 1024px) {
       padding: 10px;
+      background: rgba(255, 255, 255, 0.6);
     }
   }
 
@@ -249,6 +250,7 @@ onMounted(() => {
       height: 100%;
       resize: none;
       border: 1px solid #5454543d;
+      box-shadow: 0 0 8px rgba(127, 90, 240, 0.5);
       outline: none;
       border-radius: 10px;
       box-sizing: border-box;

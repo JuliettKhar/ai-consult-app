@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import canvasImage from '@/components/canvasImage.vue'
+import { useRoute } from 'vue-router'
+import { computed } from 'vue'
 
-const categorySelectBtns = [
-  { name: '仕事', to: '/chat', query: { type: 'job' } },
-  { name: '学業', to: '/chat', query: { type: 'study' } },
-  { name: '人間関係', to: '/chat', query: { type: 'relationship' } },
-  { name: '健康', to: '/chat', query: { type: 'health' } },
-]
+const route = useRoute()
+
+const categorySelectBtns = computed(() => [
+  { name: '仕事', to: { path: '/chat', query: { type: 'job', key: route.query.key } } },
+  { name: '学業', to: { path: '/chat', query: { type: 'study', key: route.query.key } } },
+  {
+    name: '人間関係',
+    to: { path: '/chat', query: { type: 'relationship', key: route.query.key } },
+  },
+  { name: '健康', to: { path: '/chat', query: { type: 'health', key: route.query.key } } },
+])
 </script>
 
 <template>
@@ -21,9 +28,7 @@ const categorySelectBtns = [
       </section>
       <section class="page-main__button-section">
         <template v-for="(item, i) in categorySelectBtns" :key="i">
-          <RouterLink class="button-section__button" :to="{ path: item.to, query: item.query }"
-            >{{ item.name }}
-          </RouterLink>
+          <RouterLink class="button-section__button" :to="item.to">{{ item.name }} </RouterLink>
         </template>
       </section>
       <section class="page-main__warning-section">

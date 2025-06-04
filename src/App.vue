@@ -1,26 +1,29 @@
 <script setup lang="ts">
 import { RouterLink, RouterView, useRoute } from 'vue-router'
-import { computed, ref } from 'vue'
+import { computed, onUnmounted, ref, watchEffect } from 'vue'
 
 const route = useRoute()
 
-const onApiKeyClick = () => {
-  isApiChoosed.value = true
-}
-
-const nav = [
-  { name: 'ホーム', to: '/', cb: null },
-  { name: 'サポート', to: '/faq#support', query: { type: '' }, cb: null },
-  { name: 'APIキー', to: '', cb: onApiKeyClick },
-]
 const apiKey = ref('')
 const isApiChoosed = ref(false)
 
 const isApiKeyValid = computed(() => {
   return /^sk-[a-zA-Z0-9-_]{10,}$/.test(apiKey.value)
 })
-
+const nav = computed(() => [
+  { name: 'ホーム', to: { path: '/', query: { type: '', key: route.query.key } }, cb: null },
+  {
+    name: 'サポート',
+    to: { path: '/faq', query: { type: '', key: route.query.key }, hash: '#support' },
+    cb: null,
+  },
+  { name: 'APIキー', to: { path: '', query: { key: route.query.key } }, cb: onApiKeyClick },
+])
 const isFaqRouter = computed(() => route.path.includes('faq'))
+
+const onApiKeyClick = () => {
+  isApiChoosed.value = true
+}
 
 const getApiKey = () => {
   if (!isApiKeyValid.value) {
@@ -30,16 +33,28 @@ const getApiKey = () => {
     sessionStorage.setItem('apiKey', apiKey.value)
   } else {
     alert('API key not valid')
+    isApiChoosed.value = false
+    apiKey.value = ''
   }
-  isApiChoosed.value = false
-  apiKey.value = ''
 }
+
+watchEffect(() => {
+  apiKey.value = (route.query.key as string) || ''
+})
+
+onUnmounted(() => {
+  isApiChoosed.value = false
+})
 </script>
 
 <template>
   <header class="page-header">
     <RouterLink to="/" class="page-header__logo">AI × コンサル</RouterLink>
-    <nav class="page-header__nav" v-if="!isFaqRouter">
+    <nav
+      class="page-header__nav"
+      v-if="!isFaqRouter"
+      v-click-outside="() => (isApiChoosed = false)"
+    >
       <RouterLink
         v-for="(item, i) in nav"
         :key="i"
@@ -99,6 +114,7 @@ const getApiKey = () => {
     font-weight: bold;
     color: inherit;
     position: relative;
+    min-width: 260px;
 
     & > a {
       padding: 0 5px;
@@ -151,11 +167,7 @@ const getApiKey = () => {
     border-radius: 10px;
     z-index: 2;
     transform: translateX(50%);
-    right: 50%;
-
-    @media (max-width: 1024px) {
-      top: -10px;
-    }
+    right: 54%;
 
     button,
     input {

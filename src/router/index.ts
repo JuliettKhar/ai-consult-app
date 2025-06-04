@@ -8,6 +8,7 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
+      props: true,
     },
     {
       path: '/chat',
@@ -22,13 +23,7 @@ const router = createRouter({
       props: true,
     },
   ],
-  scrollBehavior(to) {
-    if (to.hash) {
-      return {
-        el: to.hash,
-        behavior: 'smooth',
-      }
-    }
+  scrollBehavior() {
     return { top: 0 }
   },
 })

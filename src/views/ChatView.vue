@@ -25,15 +25,6 @@ const messages = ref<IMessage[]>([{ role: 'system', content: systemPrompt }])
 const key = ref<string | null>(null)
 const loading = ref(false)
 
-const getImageByRole = (role: string): string | undefined => {
-  switch (role) {
-    case 'user':
-      return UserImage
-    case 'assistant':
-      return AssistanceImage
-  }
-}
-
 const getSystemPrompt = (type: string): string => {
   switch (type) {
     case 'job':
@@ -143,9 +134,13 @@ onMounted(() => {
           こんにちは！ご相談内容を教えてください。
         </div>
         <template v-for="(item, i) in messages" :key="i">
-          <div v-if="i > 0" class="chat-message bot" :id="`message-${i}`">
+          <div
+            v-if="i > 0"
+            class="chat-message bot"
+            :id="`message-${i}`"
+            :class="item.role === 'assistant' ? 'assistant' : 'user'"
+          >
             <span class="bot-title">
-              <!--              <img :src="getImageByRole(item.role)" alt="image" />-->
               <span>{{ item.role === 'assistant' ? '🤖' : '👤' }}</span>
               <span class="bot-label">{{
                 item.role === 'assistant' ? 'AI アシスタント' : 'あなた'
@@ -184,7 +179,7 @@ onMounted(() => {
 
   &__wrapper {
     display: grid;
-    grid-template-columns: 2.5fr 2fr;
+    grid-template-columns: 2.5fr 1.8fr;
     justify-content: center;
     gap: 20px;
     padding: 0 0 2rem;
@@ -317,6 +312,20 @@ onMounted(() => {
         height: 30px;
       }
     }
+  }
+
+  &.assistant {
+    background-color: #eef3ff;
+    color: #1a1a1a;
+    border-radius: 16px 16px 16px 4px;
+    box-shadow: 0 4px 16px rgba(120, 82, 225, 0.1);
+  }
+
+  &.user {
+    background-color: #d3c4ff;
+    color: #111;
+    border-radius: 16px 16px 4px 16px;
+    box-shadow: 0 4px 16px rgba(120, 82, 225, 0.1);
   }
 }
 

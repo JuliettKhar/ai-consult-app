@@ -31,9 +31,9 @@ const getApiKey = () => {
   }
   if (isApiKeyValid.value) {
     sessionStorage.setItem('apiKey', apiKey.value)
-  } else {
-    alert('API key not valid')
     isApiChoosed.value = false
+  } else {
+    alert('API key is not valid')
     apiKey.value = ''
   }
 }

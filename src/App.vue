@@ -17,7 +17,7 @@ const nav = computed(() => [
     to: { path: '/faq', query: { type: '', key: route.query.key }, hash: '#support' },
     cb: null,
   },
-  { name: 'APIキー', to: { path: '', query: { key: route.query.key } }, cb: onApiKeyClick },
+  { name: 'APIキー', to: { path: '', query: route.query }, cb: onApiKeyClick },
 ])
 const isFaqRouter = computed(() => route.path.includes('faq'))
 
@@ -26,9 +26,6 @@ const onApiKeyClick = () => {
 }
 
 const getApiKey = () => {
-  if (!isApiKeyValid.value) {
-    return
-  }
   if (isApiKeyValid.value) {
     sessionStorage.setItem('apiKey', apiKey.value)
     isApiChoosed.value = false
@@ -67,7 +64,7 @@ onUnmounted(() => {
       <transition name="fade" mode="out-in">
         <form @click.prevent v-show="isApiChoosed" class="page-header__form">
           <input v-model.trim="apiKey" type="password" placeholder="APIキーを入力" required />
-          <button type="submit" @click="getApiKey">送信</button>
+          <button @click="getApiKey">送信</button>
         </form>
       </transition>
     </nav>

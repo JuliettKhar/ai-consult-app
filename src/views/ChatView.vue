@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import UserImage from '@/assets/image/user.svg'
-import AssistanceImage from '@/assets/image/bot.svg'
 import { useRoute } from 'vue-router'
 import type { IMessage, IPromtOptions } from '@/types.ts'
 import {

@@ -9,4 +9,5 @@ export interface IPromtOptions {
 export interface IMessage {
   role: string
   content: string
+  type?: string
 }

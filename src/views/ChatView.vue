@@ -85,9 +85,17 @@ const getAnswerFromOpenAi = async () => {
 
     const data = await res.json()
     messages.value.push({ role: 'assistant', content: data.choices[0].message.content })
-    saveMessage(data.choices[0].message)
+    saveMessage({
+      ...data.choices[0].message,
+      role: 'assistant',
+      type: route.query?.type as string,
+    })
   } catch (error: any) {
-    messages.value.push({ role: 'assistant', content: error?.message })
+    messages.value.push({
+      role: 'assistant',
+      content: error?.message,
+      type: route.query?.type as string,
+    })
   } finally {
     loading.value = false
   }
@@ -135,6 +143,7 @@ const fetchNextQuestion = async () => {
     const userMessage = {
       role: 'user',
       content: textarea.value,
+      type: route.query?.type as string,
     }
     messages.value.push(userMessage)
     saveMessage(userMessage)

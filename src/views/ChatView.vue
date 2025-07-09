@@ -85,10 +85,40 @@ const getAnswerFromOpenAi = async () => {
 
     const data = await res.json()
     messages.value.push({ role: 'assistant', content: data.choices[0].message.content })
+    saveMessage(data.choices[0].message)
   } catch (error: any) {
     messages.value.push({ role: 'assistant', content: error?.message })
   } finally {
     loading.value = false
+  }
+}
+
+const saveMessage = async (message: IMessage) => {
+  try {
+    await fetch('http://3.90.2.57:8000/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(message),
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const getMessages = async () => {
+  try {
+    const res = await fetch('http://3.90.2.57:8000/messages', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    const data = await res.json()
+    console.log(data)
+  } catch (error) {
+    console.log(error)
   }
 }
 
@@ -102,10 +132,12 @@ const fetchNextQuestion = async () => {
   }
 
   if (textarea.value) {
-    messages.value.push({
+    const userMessage = {
       role: 'user',
       content: textarea.value,
-    })
+    }
+    messages.value.push(userMessage)
+    saveMessage(userMessage)
     scrollToMessage()
     textarea.value = ''
   } else {
@@ -122,6 +154,7 @@ const fetchNextQuestion = async () => {
 
 onMounted(() => {
   key.value = getAPIKey()
+  getMessages()
 })
 </script>
 <template>

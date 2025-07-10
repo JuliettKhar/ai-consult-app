@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onBeforeMount, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import type { IMessage, IPromtOptions } from '@/types.ts'
 import {
@@ -22,6 +22,7 @@ const textarea = ref('')
 const messages = ref<IMessage[]>([{ role: 'system', content: systemPrompt }])
 const key = ref<string | null>(null)
 const loading = ref(false)
+const sessionId = ref<string | null>(null)
 
 const getSystemPrompt = (type: string): string => {
   switch (type) {
@@ -89,6 +90,7 @@ const getAnswerFromOpenAi = async () => {
       ...data.choices[0].message,
       role: 'assistant',
       type: route.query?.type as string,
+      session_id: sessionId.value,
     })
   } catch (error: any) {
     messages.value.push({
@@ -108,7 +110,7 @@ const saveMessage = async (message: IMessage) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(message),
+      body: JSON.stringify({ ...message, session_id: sessionId.value }),
     })
   } catch (error) {
     console.log(error)
@@ -117,7 +119,12 @@ const saveMessage = async (message: IMessage) => {
 
 const getMessages = async () => {
   try {
-    const res = await fetch('http://3.90.2.57:8000/messages', {
+    const params = new URLSearchParams()
+    if (sessionId.value) {
+      params.append('session_id', sessionId.value)
+    }
+
+    const res = await fetch(`http://3.90.2.57:8000/messages?${params}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -144,6 +151,7 @@ const fetchNextQuestion = async () => {
       role: 'user',
       content: textarea.value,
       type: route.query?.type as string,
+      session_id: sessionId.value,
     }
     messages.value.push(userMessage)
     saveMessage(userMessage)
@@ -161,8 +169,28 @@ const fetchNextQuestion = async () => {
   }
 }
 
-onMounted(() => {
+const getOrCreateSessionId = async () => {
+  try {
+    let sessionId = localStorage.getItem('session_id')
+    if (!sessionId) {
+      const res = await fetch('http://3.90.2.57:8000/sessions', { method: 'POST' })
+      const data = await res.json()
+      sessionId = data.id
+      localStorage.setItem('session_id', sessionId as string)
+    }
+    return sessionId
+  } catch (e) {
+    console.error(e)
+    return null
+  }
+}
+
+onBeforeMount(async () => {
   key.value = getAPIKey()
+  sessionId.value = await getOrCreateSessionId()
+})
+
+onMounted(() => {
   getMessages()
 })
 </script>

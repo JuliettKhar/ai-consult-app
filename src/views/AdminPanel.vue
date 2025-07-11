@@ -70,8 +70,8 @@
         >
           <div class="meta">
             <span class="role">{{ userMap[message.role] }}</span>
-            <span class="type">{{ typeMap[message.type] }}</span>
-            <span class="date">{{ dateFormatter(message.date) }}</span>
+            <span class="type">{{ typeMap[message.type as string] }}</span>
+            <span class="date">{{ dateFormatter(message.date as string) }}</span>
           </div>
           <div class="content">{{ message.content }}</div>
         </div>
@@ -83,18 +83,19 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue'
 import dateFormatter from '../utils/dateFormatter.ts'
+import type { ISession, IMessage } from '@/types.ts'
 
-const sessions = ref([])
-const messages = ref([])
-const activeSessionId = ref(null)
+const sessions = ref<ISession[]>([])
+const messages = ref<IMessage[]>([])
+const activeSessionId = ref<string | null>(null)
 const currentSessionId = ref(localStorage.getItem('session_id'))
 
-const userMap = {
+const userMap: Record<string, string> = {
   user: 'ゲスト',
   assistant: 'AI アシスタント',
 }
 
-const typeMap = {
+const typeMap: Record<string, string> = {
   job: '仕事',
   study: '学業',
   relationship: '人間関係',
@@ -117,7 +118,7 @@ const clearFilters = () => {
   }
 }
 
-const deleteSession = async (id) => {
+const deleteSession = async (id: string) => {
   if (!confirm('このセッションを削除しますか?')) {
     return
   }
@@ -133,7 +134,7 @@ const deleteSession = async (id) => {
   }
 }
 
-const confirmDelete = (id) => {
+const confirmDelete = (id: string) => {
   deleteSession(id)
 }
 
@@ -141,7 +142,7 @@ const copyAllMessages = async () => {
   if (messages.value.length === 0) return
 
   const allText = messages.value
-    .map((msg) => `[${msg.role.toUpperCase()}] ${msg.content}`)
+    .map((msg: IMessage) => `[${msg.role.toUpperCase()}] ${msg.content}`)
     .join('\n\n')
 
   try {
@@ -163,17 +164,17 @@ const getSessions = async () => {
 }
 
 const filteredMessages = computed(() => {
-  return messages.value.filter((msg) => {
+  return messages.value.filter((msg: IMessage) => {
     const roleMatch = !filters.value.role || msg.role.includes(filters.value.role)
-    const typeMatch = !filters.value.type || msg.type.includes(filters.value.type)
-    const date = new Date(msg.date)
+    const typeMatch = !filters.value.type || msg.type?.includes(filters.value.type)
+    const date = new Date(msg.date as string)
     const fromMatch = !filters.value.dateFrom || date >= new Date(filters.value.dateFrom)
     const toMatch = !filters.value.dateTo || date <= new Date(filters.value.dateTo + 'T23:59:59')
     return roleMatch && typeMatch && fromMatch && toMatch
   })
 })
 
-const selectSession = async (id) => {
+const selectSession = async (id: string) => {
   try {
     activeSessionId.value = id
     messages.value = sessions.value.filter((session) => session.id === id)[0].messages

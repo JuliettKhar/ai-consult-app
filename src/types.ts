@@ -7,7 +7,15 @@ export interface IPromtOptions {
 }
 
 export interface IMessage {
+  id?: string
   role: string
   content: string
   type?: string
+  date?: string
+}
+
+export interface ISession {
+  id: string
+  created_at: string
+  messages: IMessage[]
 }

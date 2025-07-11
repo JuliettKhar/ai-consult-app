@@ -1,5 +1,5 @@
-export default function formatDate(isoString) {
-  const date = new Date(isoString)
+export default function formatDate(value: string | Date): string {
+  const date = new Date(value)
   return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.toLocaleTimeString(
     [],
     {

@@ -234,7 +234,7 @@ onMounted(async () => {
               <span class="bot-label">{{
                 item.role === 'assistant' ? 'AI アシスタント' : 'あなた (ゲスト)'
               }}</span
-              ><span>{{ dateFormatter(item.date) }}</span>
+              ><span>{{ dateFormatter(item.date as string) }}</span>
             </span>
             <p>{{ item.content }}</p>
           </div>

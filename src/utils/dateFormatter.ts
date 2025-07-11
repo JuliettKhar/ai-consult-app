@@ -1,0 +1,10 @@
+export default function formatDate(isoString) {
+  const date = new Date(isoString)
+  return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.toLocaleTimeString(
+    [],
+    {
+      hour: '2-digit',
+      minute: '2-digit',
+    },
+  )}`
+}

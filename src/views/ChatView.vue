@@ -16,6 +16,7 @@ import {
   systemPrompt,
   workPrompt,
 } from '@/utils/prompts.ts'
+import dateFormatter from '../utils/dateFormatter.ts'
 
 const route = useRoute()
 const textarea = ref('')
@@ -23,6 +24,7 @@ const messages = ref<IMessage[]>([{ role: 'system', content: systemPrompt }])
 const key = ref<string | null>(null)
 const loading = ref(false)
 const sessionId = ref<string | null>(null)
+const previousSessionMessages = ref<IMessage[]>([])
 
 const getSystemPrompt = (type: string): string => {
   switch (type) {
@@ -56,7 +58,11 @@ const getPromptConfig = (type: string): Partial<IPromtOptions> => {
 
 const getMessageHistory = (type: string): IMessage[] => {
   const m = messages.value.slice(1)
-  return [{ role: 'system', content: getSystemPrompt(type) }, ...m]
+  return [
+    { role: 'system', content: getSystemPrompt(type) },
+    ...previousSessionMessages.value,
+    ...m,
+  ]
 }
 
 const scrollToMessage = () => {
@@ -67,6 +73,20 @@ const scrollToMessage = () => {
 }
 
 const getAPIKey = () => sessionStorage.getItem('apiKey') || null
+
+const createPreviousMessageList = () => {
+  const history: IMessage[] = []
+  history.push(...messages.value.slice(0, 1))
+
+  if (previousSessionMessages.value.length > 0) {
+    history.push(...previousSessionMessages.value)
+  }
+  if (messages.value.length > 1) {
+    history.push(...messages.value.slice(1))
+  }
+
+  return history.filter((item) => item.type === route.query.type)
+}
 
 const getAnswerFromOpenAi = async () => {
   try {
@@ -130,8 +150,7 @@ const getMessages = async () => {
         'Content-Type': 'application/json',
       },
     })
-    const data = await res.json()
-    console.log(data)
+    previousSessionMessages.value = await res.json()
   } catch (error) {
     console.log(error)
   }
@@ -154,8 +173,8 @@ const fetchNextQuestion = async () => {
       session_id: sessionId.value,
     }
     messages.value.push(userMessage)
-    saveMessage(userMessage)
     scrollToMessage()
+    saveMessage(userMessage)
     textarea.value = ''
   } else {
     return
@@ -187,11 +206,13 @@ const getOrCreateSessionId = async () => {
 
 onBeforeMount(async () => {
   key.value = getAPIKey()
-  sessionId.value = await getOrCreateSessionId()
 })
 
-onMounted(() => {
-  getMessages()
+onMounted(async () => {
+  sessionId.value = await getOrCreateSessionId()
+  await getMessages()
+  messages.value = createPreviousMessageList()
+  scrollToMessage()
 })
 </script>
 <template>
@@ -211,8 +232,9 @@ onMounted(() => {
             <span class="bot-title">
               <span>{{ item.role === 'assistant' ? '🤖' : '👤' }}</span>
               <span class="bot-label">{{
-                item.role === 'assistant' ? 'AI アシスタント' : 'あなた'
-              }}</span>
+                item.role === 'assistant' ? 'AI アシスタント' : 'あなた (ゲスト)'
+              }}</span
+              ><span>{{ dateFormatter(item.date) }}</span>
             </span>
             <p>{{ item.content }}</p>
           </div>
@@ -268,7 +290,7 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    max-height: 30vh;
+    max-height: 40vh;
     min-height: 30vh;
 
     @media (max-width: 1024px) {

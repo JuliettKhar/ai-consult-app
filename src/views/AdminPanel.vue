@@ -191,6 +191,12 @@ onMounted(getSessions)
   display: flex;
   height: 70vh;
   z-index: 1;
+
+  @media screen and (max-width: 1125px) {
+    flex-wrap: wrap;
+    height: 80vh;
+    overflow: auto;
+  }
 }
 
 .sidebar {
@@ -198,6 +204,13 @@ onMounted(getSessions)
   border-right: 1px solid #e2e2e2;
   padding: 1rem;
   background-color: rgba(255, 255, 255, 0.6);
+
+  @media screen and (max-width: 1125px) {
+    border-right: none;
+    overflow: auto;
+    max-height: 130px;
+    width: 100%;
+  }
 
   &__btn-wrapper {
     display: flex;
@@ -208,13 +221,28 @@ onMounted(getSessions)
 .sidebar ul {
   list-style: none;
   padding: 0;
+
+  @media screen and (max-width: 1125px) {
+    display: inline-flex;
+    overflow: auto;
+  }
 }
 
 .sidebar li {
   padding: 0.5rem;
   border-radius: 4px;
-  border: 1px solid transparent;
+  border: 1px solid lightgray;
   cursor: pointer;
+  margin-bottom: 4px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (max-width: 1125px) {
+    white-space: nowrap;
+    margin: 0 4px 0 0;
+  }
 }
 
 .sidebar li:hover {
@@ -283,6 +311,10 @@ onMounted(getSessions)
   display: flex;
   flex-direction: column;
   font-size: 0.9rem;
+
+  @media screen and (max-width: 1125px) {
+    width: 100%;
+  }
 }
 
 .filters input,
@@ -308,6 +340,10 @@ onMounted(getSessions)
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 16px rgba(139, 92, 246, 0.4);
+  }
+
+  @media screen and (max-width: 1125px) {
+    width: 100%;
   }
 }
 

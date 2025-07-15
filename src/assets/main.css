@@ -36,4 +36,8 @@
     max-width: 964px;
     min-width: 964px;
   }
+
+  @media (max-width: 1125px) {
+    padding: 1rem .5rem;
+  }
 }

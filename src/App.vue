@@ -210,6 +210,10 @@ onUnmounted(() => {
   position: relative;
   color: #666;
 
+  @media (max-width: 1125px) {
+    justify-content: center;
+  }
+
   a {
     text-decoration: none;
     position: relative;
@@ -240,6 +244,10 @@ onUnmounted(() => {
     width: 100%;
     top: -20px;
     background: rgba(208, 191, 255, 0.4);
+
+    @media (max-width: 1125px) {
+      top: -8px;
+    }
   }
 }
 </style>

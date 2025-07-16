@@ -123,7 +123,7 @@ const deleteSession = async (id: string) => {
     return
   }
   try {
-    await fetch(`http://3.90.2.57:8000/sessions/${id}`, { method: 'DELETE' })
+    await fetch(`${import.meta.env.VITE_BACKEND_URL}/sessions/${id}`, { method: 'DELETE' })
     sessions.value = sessions.value.filter((s) => s.id !== id)
     if (activeSessionId.value === id) {
       activeSessionId.value = null
@@ -156,7 +156,7 @@ const copyAllMessages = async () => {
 
 const getSessions = async () => {
   try {
-    const res = await fetch('http://3.90.2.57:8000/sessions')
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/sessions`)
     sessions.value = await res.json()
   } catch (error) {
     console.log(error)

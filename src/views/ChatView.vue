@@ -192,7 +192,7 @@ const getOrCreateSessionId = async () => {
   try {
     let sessionId = localStorage.getItem('session_id')
     if (!sessionId) {
-      const res = await fetch('http://3.90.2.57:8000/sessions', { method: 'POST' })
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/sessions`, { method: 'POST' })
       const data = await res.json()
       sessionId = data.id
       localStorage.setItem('session_id', sessionId as string)

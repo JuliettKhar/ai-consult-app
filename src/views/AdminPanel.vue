@@ -189,11 +189,12 @@ onMounted(getSessions)
 <style scoped lang="scss">
 .admin-panel {
   display: flex;
+  flex-direction: row;
   height: 70vh;
   z-index: 1;
 
   @media screen and (max-width: 1125px) {
-    flex-wrap: wrap;
+    flex-direction: column;
     height: 80vh;
     overflow: auto;
   }

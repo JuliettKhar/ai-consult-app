@@ -144,7 +144,7 @@ const getMessages = async () => {
       params.append('session_id', sessionId.value)
     }
 
-    const res = await fetch(`http://3.90.2.57:8000/messages?${params}`, {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/messages?${params}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
